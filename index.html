@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>GarageShop - Tu Tienda de Garage en Cuba</title>
+    
+    <!-- ====== SEO META ====== -->
+    <meta name="description" content="Compra y vende productos de segunda mano en Cuba. Encuentra ofertas únicas en nuestra tienda de garage virtual. ¡Precios increíbles!">
+    <meta name="keywords" content="tienda garage, compra venta Cuba, productos usados, ofertas Cuba, venta de garage, artículos usados">
+    <meta name="author" content="GarageShop">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tusuario.github.io/garageshop/">
+    
+    <!-- ====== OPEN GRAPH ====== -->
+    <meta property="og:title" content="GarageShop - Tu Tienda de Garage en Cuba">
+    <meta property="og:description" content="Encuentra productos únicos en nuestra tienda virtual. ¡Ofertas increíbles cada día!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tusuario.github.io/garageshop/">
+    <meta property="og:image" content="https://tusuario.github.io/garageshop/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="GarageShop">
+    
+    <!-- ====== TWITTER CARDS ====== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GarageShop - Tu Tienda de Garage en Cuba">
+    <meta name="twitter:description" content="Encuentra productos únicos en nuestra tienda virtual. ¡Ofertas increíbles cada día!">
+    <meta name="twitter:image" content="https://tusuario.github.io/garageshop/assets/og-image.jpg">
+    
+    <!-- ====== PWA ====== -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f5a623">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GarageShop">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+    
+    <!-- ====== PRELOAD - Carga rápida ====== -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/app.js" as="script">
+    <link rel="preload" href="data/productos.csv" as="fetch" crossorigin>
+    
+    <!-- ====== FONTS & ICONS ====== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="all" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ====== ESTILOS ====== -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- ====== SCHEMA.ORG (SEO Avanzado) ====== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GarageShop",
+        "url": "https://tusuario.github.io/garageshop/",
+        "description": "Tienda de garage virtual en Cuba",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://tusuario.github.io/garageshop/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "GarageShop",
+        "url": "https://tusuario.github.io/garageshop/",
+        "logo": "https://tusuario.github.io/garageshop/assets/icons/icon-512x512.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+53-51234567",
+            "contactType": "customer service",
+            "availableLanguage": ["Spanish"]
+        },
+        "sameAs": [
+            "https://facebook.com/tupagina",
+            "https://instagram.com/tupagina"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- ====== HEADER ====== -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" itemscope itemtype="https://schema.org/Organization">
+                    <i class="fas fa-garage" aria-hidden="true"></i>
+                    <h1 itemprop="name">Garage<span>Shop</span></h1>
+                </div>
+                <div class="header-actions">
+                    <button id="viewToggle" class="btn-icon" aria-label="Cambiar vista de productos">
+                        <i class="fas fa-list" aria-hidden="true"></i>
+                    </button>
+                    <button id="cartToggle" class="btn-icon" aria-label="Carrito de compras">
+                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero" aria-label="Bienvenida">
+        <div class="container">
+            <h2>Encuentra tesoros escondidos</h2>
+            <p>Productos únicos en tu tienda de garage virtual en Cuba</p>
+            <div class="hero-stats">
+                <span id="totalProducts">0</span>
+                <span>productos disponibles</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SEARCH & FILTERS ====== -->
+    <section class="search-section" aria-label="Buscador y filtros">
+        <div class="container">
+            <div class="search-box" role="search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Buscar productos..." 
+                    autocomplete="off"
+                    aria-label="Buscar productos"
+                    aria-autocomplete="list"
+                    aria-controls="autocompleteList"
+                >
+                <button id="clearSearch" class="btn-clear" style="display:none;" aria-label="Limpiar búsqueda">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <!-- Autocomplete -->
+            <div id="autocompleteList" class="autocomplete-list" role="listbox" aria-label="Sugerencias de búsqueda"></div>
+            
+            <!-- Categories -->
+            <div class="categories-filter" id="categoriesContainer" role="tablist" aria-label="Filtrar por categoría">
+                <button class="category-chip active" data-category="all" role="tab" aria-selected="true">Todos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="main-content" role="main">
+        <div class="container">
+            <div class="products-header">
+                <span id="productCount">0 productos</span>
+                <div class="view-options" role="group" aria-label="Opciones de visualización">
+                    <button class="view-btn active" data-view="grid" aria-label="Vista en cuadrícula" aria-pressed="true">
+                        <i class="fas fa-th" aria-hidden="true"></i>
+                    </button>
+                    <button class="view-btn" data-view="list" aria-label="Vista en lista" aria-pressed="false">
+                        <i class="fas fa-list" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="productsContainer" class="products-grid" itemscope itemtype="https://schema.org/ItemList">
+                <!-- Productos renderizados por JS -->
+            </div>
+            
+            <!-- Loader -->
+            <div id="loader" class="loader" aria-label="Cargando productos">
+                <div class="spinner" role="status"></div>
+                <p>Cargando productos...</p>
+            </div>
+            
+            <!-- Load More -->
+            <div id="loadMoreContainer" style="text-align:center;margin-top:30px;display:none;">
+                <button id="loadMoreBtn" class="btn-load-more">
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i> Cargar más productos
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ====== WHATSAPP FLOATING BUTTON ====== -->
+    <a href="#" id="whatsappFloat" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        <span class="whatsapp-tooltip">¡Chatea con nosotros!</span>
+    </a>
+
+    <!-- ====== NOTIFICATIONS ====== -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-social">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a href="#terminos">Términos y condiciones</a>
+                    <a href="#privacidad">Política de privacidad</a>
+                    <a href="#contacto">Contacto</a>
+                </div>
+                <p class="footer-text">© 2026 <strong>GarageShop</strong> - Tu tienda de garage en Cuba</p>
+                <p class="footer-text small">Hecho con ❤️ para la comunidad cubana</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="js/app.js" defer></script>
+    <script src="js/search.js" defer></script>
+    <script src="js/pwa.js" defer></script>
+    
+    <!-- ====== ANALYTICS (sin cookies) ====== -->
+    <script defer data-domain="tusuario.github.io" src="https://plausible.io/js/plausible.js"></script>
+</body>
+</html>
